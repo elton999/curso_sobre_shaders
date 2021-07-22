@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: myMaterial
-  m_Shader: {fileID: 4800000, guid: 09552adda4a881d268f53572bfe15496, type: 3}
+  m_Name: bufferMaterial
+  m_Shader: {fileID: 4800000, guid: 149c4bf89f73c5b29bde2811be4ce9a2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -56,18 +56,25 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Ambient: 1
+    - _Bright: 2.87
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Diffuse: 0
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.52
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Metallic: 0.1
+    - _Intensity: 2.51
+    - _Metallic: 0
     - _Mode: 0
+    - _Multiplier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Size: 1.45
     - _SmoothnessTextureChannel: 0
+    - _Specular: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -75,4 +82,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ObjectColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Position: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
