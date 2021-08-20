@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/computer buffer/computer buffer.unity
+    guid: 7025262ab0318adbc8ee48ad99c2ed90
   m_configObjects: {}

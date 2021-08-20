@@ -2,7 +2,6 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
     }
     SubShader
@@ -23,15 +22,11 @@
             {
                 float4 vertex : SV_POSITION;
             };
-
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-
             float4 _Color;
-
+            
             StructuredBuffer<float3> buffer;
 
-            v2f vert (uint id: SV_VertexID)
+            v2f vert (uint id: SV_VERTEXID)
             {
                 ///sad
                 v2f o;
@@ -42,7 +37,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = _Color;
-                return col;
+                return _Color;
             }
             ENDCG
         }
