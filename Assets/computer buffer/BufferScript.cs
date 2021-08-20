@@ -25,13 +25,12 @@ public class BufferScript : MonoBehaviour
         vertices[5] = new Vector3(1, 0, 1);
 
         buffer.SetData(vertices);
-        material.SetBuffer("buffer", buffer);
+        material.SetBuffer("bufferv", buffer);
     }
 
     private void OnRenderObject()
     {
         material.SetPass(0);
-        material.color = Color.green;
         Graphics.DrawProceduralNow(MeshTopology.Triangles, 6, 1);
     }
 

@@ -24,14 +24,15 @@
             };
             float4 _Color;
             
-            StructuredBuffer<float3> buffer;
+            StructuredBuffer<float3> bufferv;
 
-            v2f vert (uint id: SV_VERTEXID)
+            v2f vert (uint id: SV_VertexID)
             {
                 ///sad
                 v2f o;
-                o.vertex = UnityObjectToClipPos(buffer[id]);
+                o.vertex = UnityObjectToClipPos(bufferv[id]);
                 return o;
+
             }
 
             fixed4 frag (v2f i) : SV_Target

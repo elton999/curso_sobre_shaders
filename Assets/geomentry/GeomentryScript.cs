@@ -6,7 +6,7 @@ public class GeomentryScript : MonoBehaviour
 {
     Vector3[] points;
     ComputeBuffer buffer;
-    public Material Material;
+    public Material material1;
     void Start()
     {
         points = new Vector3[1];
@@ -15,16 +15,22 @@ public class GeomentryScript : MonoBehaviour
         points[0] = Vector3.zero;
 
         buffer.SetData(points);
-        Material.SetBuffer("buffer", buffer);
+        material1.SetBuffer("buffervv", buffer);
     }
 
-    void OnRenderObject()
+    private void OnRenderObject()
     {
-        Material.SetPass(0);
-        Graphics.DrawProceduralNow(MeshTopology.Triangles, 1, 1);
+        material1.SetPass(0);
+        Graphics.DrawProceduralNow(MeshTopology.Triangles, 4, 1);
     }
     void Update()
     {
 
     }
+
+    void OnDestroy()
+    {
+        buffer.Dispose();
+    }
+
 }

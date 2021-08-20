@@ -1,14 +1,14 @@
-﻿Shader "Unlit/GeomentryShader"
+﻿ Shader "Unlit/GeomentryShader"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
+        Cull Off
 
         Pass
         {
@@ -20,7 +20,6 @@
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
-            float4 _MainTex_ST;
             float4 _Color;
 
             struct v2g
@@ -35,11 +34,11 @@
             };
 
 
-            StructuredBuffer<float3> buffer;
-            v2g vert (uint id: SV_VERTEXID)
+            StructuredBuffer<float3> buffervv;
+            v2g vert (uint id: SV_VertexID)
             {
                 v2g o;
-                o.vertex = float4(buffer[id], 0);
+                o.vertex = float4(buffervv[id], 0);
                 return o;
             }
 
@@ -63,7 +62,7 @@
                 o.vertex = UnityObjectToClipPos(v2);
                 stream.Append(o);
 
-                float3 v3 = v + right + up;
+                float3 v3 = v1 + up;
                 o.vertex = UnityObjectToClipPos(v3);
                 stream.Append(o);
             }
