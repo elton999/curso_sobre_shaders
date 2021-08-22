@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Grass : MonoBehaviour
 {
-    [Range(1, 50)]
+    [Range(1, 1000)]
     public int amuont;
+
+    [Range(1, 100)]
+    public float Range = 10f;
 
     Vector3[] points;
     ComputeBuffer buffer;
@@ -17,7 +20,7 @@ public class Grass : MonoBehaviour
 
         for (int i = 0; i < amuont; i++)
         {
-            points[i] = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
+            points[i] = new Vector3(Random.Range(-Range, Range), 0, Random.Range(-Range, Range));
         }
 
 
