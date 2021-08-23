@@ -65,19 +65,22 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Height: 1
+    - _Intensity: 13.8
+    - _MaxHeight: 14.68
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 0.29
+    - _Radius: 0.67
     - _Size: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _Velocity: 1.59
     - _Width: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.66914827, b: 0, a: 1}
+    - _Color: {r: 0.990566, g: 0.25671932, b: 0.1728818, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

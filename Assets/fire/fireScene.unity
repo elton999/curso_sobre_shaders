@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bbc76aa5ec37a4d900252cd736e161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 20
+  amount: 334
   material: {fileID: 2100000, guid: 852333e2f13124747bda7acaf7ff4d93, type: 2}
 --- !u!4 &787898294
 Transform:

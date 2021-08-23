@@ -45,10 +45,10 @@ Shader "Unlit/FireShader"
             v2g vert (uint id : SV_VertexID)
             {   
                 float3 v = bufferv[id].pos * _Radius;
-                v.y += _Time.y * bufferv[id].vel * 3.0f;
+                v.y += _Time.y * bufferv[id].vel * _MaxHeight;
 
                 float n = trunc(v.y / _MaxHeight);
-                v.y -= n * 3;
+                v.y -= n * _MaxHeight;
 
                 v2g o;
                 o.vertex = float4(v, 0);
@@ -58,7 +58,6 @@ Shader "Unlit/FireShader"
             [maxvertexcount(4)]
             void geom(point v2g IN[1], inout TriangleStream<g2f> stream){
 
-                
                 float3 v = IN[0].vertex;
                 g2f o[4];
                 quad(o , v, _Size);
