@@ -3,9 +3,12 @@ Shader "Unlit/FireShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Width ("Width", float) = 1
-        _Height ("Height", float) = 1
+        _Size ("Size", float) = 1
         _Radius ("Radius", Range(0,1)) = 1
+        _Color ("Color", Color) = (1,1,1,1)
+        _Intensity ("Intensity", Range(0,20)) = 1
+        _Velocity ("Velocity", float) = 1
+        _MaxHeight ("Max Height", float) = 3
     }
     SubShader
     {
@@ -25,12 +28,16 @@ Shader "Unlit/FireShader"
             #include "UnityCG.cginc"
 
             #include "Structs.cginc"
+            #include "Quad.cginc"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _Width;
-            float _Height;
+            float _Size;
             float _Radius;
+            float4 _Color;
+            float _Intensity;
+            float _Velocity;
+            float _MaxHeight;
 
 
             StructuredBuffer<DataScript> bufferv;
@@ -38,48 +45,42 @@ Shader "Unlit/FireShader"
             v2g vert (uint id : SV_VertexID)
             {   
                 float3 v = bufferv[id].pos * _Radius;
-                v.y += _Time.y * bufferv[id].vel;
+                v.y += _Time.y * bufferv[id].vel * 3.0f;
+
+                float n = trunc(v.y / _MaxHeight);
+                v.y -= n * 3;
+
                 v2g o;
                 o.vertex = float4(v, 0);
                 return o;
             }
 
-            
-
             [maxvertexcount(4)]
             void geom(point v2g IN[1], inout TriangleStream<g2f> stream){
 
-                float3 right = float3(1,0,0);
-                float3 up = float3(0,1,0);
-
-                float3 v = IN[0].vertex;
-                g2f o;
-
-                o.vertex = UnityObjectToClipPos(v);
-                o.uv = float2(0,0);
-                stream.Append(o);
-
-                float3 v1 = v + right * _Width;
-                o.vertex = UnityObjectToClipPos(v1);
-                o.uv = float2(1,0);
-                stream.Append(o);
-
-                float3 v2 = v + up * _Height;
-                o.vertex = UnityObjectToClipPos(v2);
-                o.uv = float2(0,1);
-                stream.Append(o);
-
-                float3 v3 = v1 + up * _Height;
-                o.vertex = UnityObjectToClipPos(v3);
-                o.uv = float2(1,1);
-                stream.Append(o);
                 
+                float3 v = IN[0].vertex;
+                g2f o[4];
+                quad(o , v, _Size);
+
+                stream.Append(o[0]);
+                stream.Append(o[1]);
+                stream.Append(o[2]);
+                stream.Append(o[3]);
             }
 
             fixed4 frag (g2f i) : SV_Target
             {
-                // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+
+                float d = 1 - distance(i.wPos.y, 0) / _MaxHeight;
+                float d_xyz = 1 - distance(i.wPos, float3(0,0,0)) / _MaxHeight;
+
+                col.rgb *= d_xyz * _Color * _Intensity;
+                
+                col.a *= clamp(d, 0, 1);
+
+
                 return col;
             }
             ENDCG

@@ -13,4 +13,5 @@ struct v2g
 struct g2f{
     float2 uv : TEXCOORD0;
     float4 vertex : SV_POSITION;
+    float3 wPos : TEXCOORD1;
 };

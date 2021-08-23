@@ -10,7 +10,7 @@ public class Fire : MonoBehaviour
     }
 
 
-    [Range(1,20)]
+    [Range(1,500)]
     public int amount;
     Data[] points;
     ComputeBuffer buffer;
