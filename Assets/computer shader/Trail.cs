@@ -9,6 +9,12 @@ public class Trail : MonoBehaviour
     ComputeBuffer buffer;
 
     public Material material;
+
+    public ComputeShader Compute;
+    int kernel;
+
+    [Range(0, 10)]
+    public float velocity;
     void Start()
     {
         points = new Vector3[pointsCount];
@@ -21,6 +27,10 @@ public class Trail : MonoBehaviour
 
         buffer.SetData(points);
         material.SetBuffer("bufferv", buffer);
+
+
+        kernel = Compute.FindKernel("Move");
+        Compute.SetBuffer(kernel, "bufferv", buffer);
     }
 
     private void OnRenderObject()
@@ -29,14 +39,15 @@ public class Trail : MonoBehaviour
         Graphics.DrawProceduralNow(MeshTopology.Points, buffer.count, 1);
     }
 
+    void Update()
+    {
+        Compute.SetFloat("velocity", velocity);
+        Compute.SetVector("position", transform.position);
+        Compute.Dispatch(kernel, buffer.count / 16, 1, 1);
+    }
+
     void OnDestroy()
     {
         buffer.Dispose();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

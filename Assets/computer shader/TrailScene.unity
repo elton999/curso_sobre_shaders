@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: e6a337b5741be5df694c93a32fcbef2e, type: 2}
+  Compute: {fileID: 7200000, guid: 1cb56ff6178b65dfe830566d2b9cc7e1, type: 3}
+  velocity: 0.1
 --- !u!4 &1414510738
 Transform:
   m_ObjectHideFlags: 0
