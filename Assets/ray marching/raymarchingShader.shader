@@ -3,6 +3,7 @@ Shader "Unlit/raymarchingShader"
     Properties
     {
         _Color ("Color", Color) =  (1,1,1,1)
+        _Radious ("Radious", float) = 1.0
     }
     SubShader
     {
@@ -30,6 +31,7 @@ Shader "Unlit/raymarchingShader"
             };
 
             float4 _Color;
+            float _Radious;
 
             v2f vert (appdata v)
             {
@@ -42,13 +44,13 @@ Shader "Unlit/raymarchingShader"
             #define STEPS 30
 
             float sphere_sdf(float3 p, float3 c){
-                float d = length(p-c) - 1;
+                float d = length(p-c) - _Radious;
                 return d;
             }
 
             int raymarching(float3 ro, float3 rd){
                 float total_dist = 0;
-                float pos;
+                float3 pos;
 
                 for(int i = 0; i < STEPS; i++){
                     pos = ro + rd * total_dist;
