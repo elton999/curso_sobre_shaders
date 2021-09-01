@@ -3,6 +3,7 @@ Shader "Unlit/raymarchingShader"
     Properties
     {
         _Color ("Color", Color) =  (1,1,1,1)
+        _Center ("Center", Vector) = (0,0,0,0)
         _Radious ("Radious", float) = 1.0
     }
     SubShader
@@ -18,20 +19,10 @@ Shader "Unlit/raymarchingShader"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-
-            struct appdata
-            {
-                float4 vertex : POSITION;
-            };
-
-            struct v2f
-            {
-                float4 vertex : SV_POSITION;
-                float3 wPos : TEXCOORD0;
-            };
+            #include "Structs.cginc"
+            #include "RayMarching.cginc"
 
             float4 _Color;
-            float _Radious;
 
             v2f vert (appdata v)
             {
@@ -41,40 +32,18 @@ Shader "Unlit/raymarchingShader"
                 return o;
             }
 
-            #define STEPS 30
-
-            float sphere_sdf(float3 p, float3 c){
-                float d = length(p-c) - _Radious;
-                return d;
-            }
-
-            int raymarching(float3 ro, float3 rd){
-                float total_dist = 0;
-                float3 pos;
-
-                for(int i = 0; i < STEPS; i++){
-                    pos = ro + rd * total_dist;
-                    float d = sphere_sdf(pos, float3(0,0,0));
-                    if(d < 0.001)
-                        return 1;
-                    if(d > 1000)
-                        return 0;
-
-                    total_dist+= d;
-                }
-
-                return 0;
-            }
-
             fixed4 frag (v2f i) : SV_Target
             {
+                float3 pos;
                 float4 col = float4(0,0,0,0);
                 float3 rayOrigin = _WorldSpaceCameraPos;
                 float3 rayDirection = normalize(i.wPos -_WorldSpaceCameraPos);
-                int rm = raymarching(rayOrigin, rayDirection);
+                int rm = raymarching(rayOrigin, rayDirection, pos);
 
                 if(rm == 1){
+                    float3 normal = calculate_normal(pos);
                     col = _Color;
+                    col.rgb *= dot(normal, _WorldSpaceLightPos0);
                 }
                 return col;
             }
