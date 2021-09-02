@@ -4,7 +4,8 @@ float _Radious;
 #define STEPS 30
 
 float sphere_sdf(float3 p){
-    float d = length(p-_Center) - _Radious;
+    float displacement = sin(_Displacement * p.x) * sin(_Displacement * p.y) * sin(_Displacement * p.z);
+    float d = length(p-_Center) - _Radious + displacement * cos(_Time.y + p.x + p.y + p.z) * 0.25;
     return d;
 }
 
